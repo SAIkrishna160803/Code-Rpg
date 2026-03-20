@@ -438,6 +438,42 @@ body {
   font-size: 1.5rem; opacity: 0.6;
 }
 
+/* Certification badge on world cards */
+.cert-badge {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  background: rgba(255, 215, 0, 0.1);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  color: var(--gold);
+  padding: 0.25rem 0.6rem;
+  border-radius: 2px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+/* Cert info table in lesson body */
+.cert-info-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.9rem;
+}
+.cert-info-table td {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border);
+  vertical-align: top;
+}
+.cert-info-table td:first-child {
+  color: var(--cyan);
+  font-weight: 700;
+  white-space: nowrap;
+  width: 40%;
+  background: rgba(0,0,0,0.2);
+}
+.cert-info-table td:last-child {
+  color: var(--text-primary);
+}
+
 .world-skills {
   display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem;
 }
