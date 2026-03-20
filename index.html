@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CodeQuest RPG — Learn by Battling</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚔️</text></svg>" />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- SCREEN: Landing -->
+<div id="screen-landing" class="screen active">
+  <div class="landing-bg">
+    <div class="stars"></div>
+    <div class="grid-overlay"></div>
+  </div>
+  <div class="landing-content">
+    <div class="logo-area">
+      <div class="pixel-sword">⚔️</div>
+      <h1 class="game-title">CODE<span>QUEST</span></h1>
+      <p class="game-subtitle">RPG</p>
+      <p class="tagline">Learn Python · SQL · ML · Data Science<br>by conquering dungeons & slaying bugs</p>
+    </div>
+    <div class="landing-actions">
+      <button class="btn-primary pixel-btn" onclick="App.startGame()">
+        <span>▶ NEW GAME</span>
+      </button>
+      <button class="btn-secondary pixel-btn" onclick="App.continueGame()">
+        <span>⟳ CONTINUE</span>
+      </button>
+    </div>
+    <div class="landing-features">
+      <div class="feat">🗡️ Boss Battles per Level</div>
+      <div class="feat">🏗️ 2 Projects per Stack</div>
+      <div class="feat">🤖 AI Code Review</div>
+      <div class="feat">📱 Mobile Friendly</div>
+    </div>
+  </div>
+</div>
+
+<!-- SCREEN: Character Create -->
+<div id="screen-character" class="screen">
+  <div class="screen-inner">
+    <h2 class="screen-title">CREATE YOUR HERO</h2>
+    <div class="character-form">
+      <div class="avatar-picker">
+        <p class="label">Choose Avatar</p>
+        <div class="avatar-grid" id="avatar-grid"></div>
+      </div>
+      <div class="name-input-wrap">
+        <label class="label">Hero Name</label>
+        <input type="text" id="hero-name" class="pixel-input" placeholder="Enter your name..." maxlength="16" />
+      </div>
+      <div class="path-picker">
+        <p class="label">Starting Path</p>
+        <div class="path-options" id="path-options"></div>
+      </div>
+      <button class="btn-primary pixel-btn wide" onclick="App.createCharacter()">
+        BEGIN QUEST ⚔️
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- SCREEN: World Map -->
+<div id="screen-map" class="screen">
+  <header class="game-header">
+    <div class="hero-info">
+      <span class="hero-avatar" id="header-avatar">🧙</span>
+      <div class="hero-stats">
+        <span class="hero-name" id="header-name">Hero</span>
+        <div class="xp-bar-wrap">
+          <div class="xp-bar" id="xp-bar"></div>
+          <span class="xp-label" id="xp-label">0 XP</span>
+        </div>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button class="icon-btn" onclick="App.showProjects()" title="Projects">🏗️</button>
+      <button class="icon-btn" onclick="App.showAchievements()" title="Achievements">🏆</button>
+      <button class="icon-btn" onclick="App.showInventory()" title="Skills">📜</button>
+    </div>
+  </header>
+
+  <div class="world-map-container">
+    <h2 class="map-title">WORLD MAP</h2>
+    <div class="worlds-grid" id="worlds-grid"></div>
+  </div>
+</div>
+
+<!-- SCREEN: World/Dungeon -->
+<div id="screen-world" class="screen">
+  <header class="game-header">
+    <button class="back-btn" onclick="App.goToMap()">← MAP</button>
+    <div class="world-info">
+      <span id="world-icon-header">🐍</span>
+      <span id="world-title-header">Python Realm</span>
+    </div>
+    <div class="level-badge">
+      LVL <span id="player-level">1</span>
+    </div>
+  </header>
+
+  <div class="dungeon-container">
+    <div class="dungeon-sidebar" id="dungeon-sidebar">
+      <div class="sidebar-section">
+        <h3>📜 LEVELS</h3>
+        <div id="levels-list"></div>
+      </div>
+      <div class="sidebar-section">
+        <h3>🏗️ PROJECTS</h3>
+        <div id="project-tracker"></div>
+      </div>
+    </div>
+    <div class="dungeon-main" id="dungeon-main">
+      <div class="level-content" id="level-content"></div>
+    </div>
+  </div>
+</div>
+
+<!-- SCREEN: Battle (Boss Question) -->
+<div id="screen-battle" class="screen">
+  <div class="battle-container">
+    <div class="battle-header">
+      <div class="boss-area">
+        <div class="boss-sprite" id="boss-sprite">👾</div>
+        <div class="boss-health-wrap">
+          <span class="boss-name" id="boss-name">BOSS</span>
+          <div class="boss-health-bar-outer">
+            <div class="boss-health-bar" id="boss-health-bar"></div>
+          </div>
+        </div>
+      </div>
+      <div class="player-battle-area">
+        <div class="player-sprite" id="player-battle-sprite">🧙</div>
+        <div class="player-health-wrap">
+          <span class="player-battle-name" id="player-battle-name">Hero</span>
+          <div class="player-health-bar-outer">
+            <div class="player-health-bar" id="player-health-bar" style="width:100%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="battle-question-area">
+      <div class="question-header">
+        <span class="difficulty-badge" id="q-difficulty">MEDIUM</span>
+        <span class="xp-reward" id="q-xp">+50 XP</span>
+      </div>
+      <div class="question-text" id="question-text">Loading...</div>
+      <div class="options-grid" id="options-grid"></div>
+      <div class="code-answer-area" id="code-answer-area" style="display:none">
+        <textarea class="code-editor" id="code-editor" placeholder="Write your code here..."></textarea>
+        <div class="code-actions">
+          <button class="btn-hint" onclick="Battle.getHint()">💡 Hint (-10 XP)</button>
+          <button class="btn-primary pixel-btn" onclick="Battle.submitCode()">⚔️ ATTACK!</button>
+        </div>
+        <div class="ai-feedback" id="ai-feedback"></div>
+      </div>
+    </div>
+
+    <div class="battle-log" id="battle-log"></div>
+  </div>
+</div>
+
+<!-- SCREEN: Projects -->
+<div id="screen-projects" class="screen">
+  <header class="game-header">
+    <button class="back-btn" onclick="App.goBack()">← BACK</button>
+    <div class="world-info">🏗️ PROJECT FORGE</div>
+  </header>
+  <div class="projects-container" id="projects-container"></div>
+</div>
+
+<!-- SCREEN: Victory -->
+<div id="screen-victory" class="screen">
+  <div class="victory-content">
+    <div class="victory-fireworks" id="victory-fireworks"></div>
+    <div class="victory-icon" id="victory-icon">🏆</div>
+    <h2 class="victory-title" id="victory-title">BOSS DEFEATED!</h2>
+    <div class="victory-rewards" id="victory-rewards"></div>
+    <button class="btn-primary pixel-btn wide" onclick="App.afterVictory()">CONTINUE ▶</button>
+  </div>
+</div>
+
+<!-- MODAL: Overlay panels -->
+<div id="modal-overlay" class="modal-overlay" onclick="App.closeModal()">
+  <div class="modal-box" onclick="e => e.stopPropagation()">
+    <button class="modal-close" onclick="App.closeModal()">✕</button>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<!-- Toast notifications -->
+<div id="toast-container"></div>
+
+<!-- Scripts -->
+<script src="js/data.js"></script>
+<script src="js/state.js"></script>
+<script src="js/battle.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
