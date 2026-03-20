@@ -50,6 +50,7 @@ const UI = (() => {
             <div class="world-tag">${world.tag}</div>
           </div>
         </div>
+        ${world.certInfo ? `<div class="cert-badge">🎓 ${world.certInfo.code} · Pass: ${world.certInfo.passingScore} · ${world.certInfo.cost}</div>` : ''}
         <div class="world-desc">${world.desc}</div>
         <div class="world-skills">
           ${world.skills.map(s => `<span class="skill-tag">${s}</span>`).join('')}
@@ -189,6 +190,19 @@ const UI = (() => {
         <div class="level-title">Level ${idx + 1}: ${level.title}</div>
         <div class="level-subtitle">Topic: ${level.subtitle}</div>
       </div>
+      ${idx === 0 && world.certInfo ? `
+        <div class="lesson-body" style="margin-bottom:1rem;">
+          <h3>🎓 CERTIFICATION INFO</h3>
+          <table class="cert-info-table">
+            <tr><td>Exam Code</td><td>${world.certInfo.code}</td></tr>
+            <tr><td>Questions</td><td>${world.certInfo.questions}</td></tr>
+            <tr><td>Duration</td><td>${world.certInfo.duration}</td></tr>
+            <tr><td>Passing Score</td><td>${world.certInfo.passingScore}</td></tr>
+            <tr><td>Cost</td><td>${world.certInfo.cost}</td></tr>
+            <tr><td>Validity</td><td>${world.certInfo.validity}</td></tr>
+          </table>
+        </div>
+      ` : ''}
       <div class="lesson-body">
         <p>${lesson.intro}</p>
         ${sectionsHTML}
